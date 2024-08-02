@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
+.splash {
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/car.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.monsFont {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.monsFontB {
+    font-weight: 700;
+}
+
+.lineSpcSm {
+    line-height: 25px;
+}
+
+.lineSpcMd {
+    line-height: 35px;
+}
+
+.textShadow {
+    text-shadow: 1px 3px 5px rgb(179, 177, 177);
+}
