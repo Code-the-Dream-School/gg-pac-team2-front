@@ -10,3 +10,9 @@
     font-size: 2rem;
     color: #999999
 }
+
+.boxStyle {
+    background-color: rgb(240, 238, 238);
+    box-shadow: 5px 5px 25px #cfcfcf;
+    border: 1px solid #cfcfcf;
+}

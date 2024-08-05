@@ -1,6 +1,5 @@
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
-import styles from '../styles/inputs.module.css'
 
 function StandardInputs() {
     return (
@@ -8,7 +7,7 @@ function StandardInputs() {
             <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"
-                className={`mb-3 ${styles.wdt}`}
+                className={`mb-3`}
             >
                 <Form.Control type="email" placeholder="name@example.com" />
             </FloatingLabel>
