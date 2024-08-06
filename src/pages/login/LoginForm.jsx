@@ -1,14 +1,15 @@
 import styles from './loginForm.module.css';
-import Input from '../../components/Inputs'
-import Button from '../../components/Buttons';
-import style from '../../styles/buttons.module.css'
-import getSplashImage from '../../app.module.css';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import '../../styles/common.css';
+import '../../styles/buttons.css'
+import '../../styles/inputs.css'
 import { Link } from "react-router-dom";
-
 
 function LoginForm() {
     return (
-        <div className={getSplashImage.splash}>
+        <div className='splash'>
             <div className='container overflow-auto'>
                 <div className='row'>
                     <div className='col-5 mt-5'>
@@ -22,8 +23,17 @@ function LoginForm() {
                             <div className={`text-center ${styles.monsFont} mt-3`}>
                                 <p>Login</p>
                             </div>
-                            <Input />
-                            <Button className={'mt-4 w-100'} radius={style.radius5}>Sign in</Button>
+                            <FloatingLabel
+                                controlId="floatingInput"
+                                label="Email address"
+                                className={`mb-3`}
+                            >
+                                <Form.Control type="email" placeholder="name@example.com" />
+                            </FloatingLabel>
+                            <FloatingLabel controlId="floatingPassword" label="Password">
+                                <Form.Control type="password" placeholder="Password" />
+                            </FloatingLabel>
+                            <Button className={'mt-4 w-100 radius5 btnStyle'}>Sign in</Button>
                             <div className='mt-3 w-100 text-center' onClick={() => alert('This will redirect to the reset password page')}>Forgot your password ?</div>
                         </div>
                     </div >

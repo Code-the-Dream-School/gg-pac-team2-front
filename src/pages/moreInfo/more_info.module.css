@@ -1,0 +1,60 @@
+.boxStyle {
+    background-color: rgb(240, 238, 238);
+    box-shadow: 5px 5px 25px #cfcfcf;
+    border: 1px solid #cfcfcf;
+    background-image: url('../../../images/moreInfoBg.png');
+    background-size: cover;
+    height: 75vh;
+    overflow-y: scroll;
+}
+
+.paraStyle {
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
+
+blockquote {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 2rem;
+    line-height: 1.25;
+    letter-spacing: -0.05rem;
+}
+
+blockquote:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background-color: #A9DFBF;
+    border-radius: 60px;
+}
+
+.content {
+    position: relative;
+    margin: 0 auto 8rem;
+    padding: 2rem;
+}
+
+.contentInner {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.contentInner>*+* {
+    margin-top: 1.5rem;
+}
+
+.contentInner>blockquote {
+    margin: 3rem 0;
+}
+
+.contentTitle {
+    font-family: "Courgette", serif;
+    font-size: 3rem;
+    line-height: 1.25;
+    letter-spacing: -0.125rem;
+    text-align: center;
+}
