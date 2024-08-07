@@ -1,0 +1,43 @@
+.paraStyle {
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
+
+.content {
+    position: relative;
+    margin: 0 auto ;
+}
+
+
+.contentInner>*+* {
+    margin-top: 1.5rem;
+}
+
+.textShadow {
+    color: rgb(70, 69, 69);
+    text-shadow: 2px 3px 5px rgb(172, 172, 172);
+}
+
+.bgPattern1 {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: repeating-linear-gradient(45deg, #c1e09fad, #e5e7e2 5px, #e5e5f7 5px, #e5e5f7 25px);
+}
+
+
+.bgPattern2 {
+    background-image: linear-gradient(135deg, #c1e09fad 25%, transparent 25%), linear-gradient(225deg, #e5e7e2 25%, transparent 25%), linear-gradient(45deg, #c1e09fad 25%, transparent 25%), linear-gradient(315deg, #c1e09fad 25%, #e5e5f7 25%);
+    background-position: 4px 0, 4px 0, 0 0, 0 0;
+    background-size: 4px 4px;
+    background-repeat: repeat;
+}
+
+.bgPattern3 {
+    background-image: linear-gradient(#c1e09fad 0.8px, transparent 0.8px), linear-gradient(90deg, #c1e09fad 0.8px, transparent 0.8px), linear-gradient(#444cf7 0.4px, transparent 0.4px), linear-gradient(90deg, #444cf7 0.4px, #e5e5f7 0.4px);
+    background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
+    background-position: -0.8px -0.8px, -0.8px -0.8px, -0.4px -0.4px, -0.4px -0.4px;
+}
+
+.bigText {
+    font-size: 5rem;
+}
