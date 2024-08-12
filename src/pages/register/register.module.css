@@ -1,0 +1,23 @@
+.bgImage {
+  margin-top: 10px;
+  background-image: url("../../../images/register.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.darkBlueColor {
+  color: #1a4a7a;
+}
+
+.smallFont {
+  font-size: 0.7rem;
+}
+
+.bigText {
+  font-size: 3rem;
+}
+
+.smallText {
+  font-size: 1.5rem;
+}
