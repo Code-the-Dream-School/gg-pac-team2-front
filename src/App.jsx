@@ -1,11 +1,13 @@
 import React from 'react';
-import Home from './pages/home/Home'
+import Home from './pages/home/Home';
+import ProfileForm from './components/ProfileForm';
 
 function App() {
 
   return (
     <>
-      <Home />
+      {/* <Home /> */}
+      <ProfileForm />
     </>
   );
 
