@@ -17,7 +17,8 @@
     "react-bootstrap": "^2.10.4",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.26.0"
+    "react-router-dom": "^6.26.0",
+    "react-select": "^5.8.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
