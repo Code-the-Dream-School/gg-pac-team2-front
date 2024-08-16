@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import LoginForm from "./pages/login/Login";
 import Info from "./pages/info/Info";
 import Register from "./pages/register/Register";
+import Dashboard from "./pages/dashboard/Dashboard";
 import Profile from "./pages/profile/Profile";
 import "./main.css";
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: "/profile",
     element: <Profile />,
   },
+  {
+    path:"/dashboard",
+    element: <Dashboard/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

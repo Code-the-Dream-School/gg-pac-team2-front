@@ -1,11 +1,55 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
+import ModalA from "../../components/ModalA";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import registerPageStyle from "./register.module.css";
+import axios from "axios";
 
 const Register = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [bodyMsg, setBodyMsg] = useState("");
+
+  const [values, setValues] = useState({
+    parentName: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { parentName, email, password, passwordConfirm } = values;
+    const registerNewUser = { parentName, email, password };
+
+    if (password !== passwordConfirm) {
+      setMsg("Password confirmation didn't match!");
+      setBodyMsg("Please check your password and try again");
+      setShowModal(true);
+      return;
+    }
+    try {
+      const data = await axios.post(
+        "http://localhost:8000/api/v1/auth/register",
+        registerNewUser
+      );
+      console.log(data);
+    } catch (error) {
+      if (error.response) {
+        setMsg("Error!");
+        setBodyMsg(error.response.data.message);
+        setShowModal(true);
+      } else if (error.request) {
+        console.log(error.request);
+      } else if (error.message) {
+        console.log(error.message);
+      }
+    }
+  };
+
   return (
     <>
       <Menu />
@@ -15,41 +59,64 @@ const Register = () => {
             <h4 className={`${registerPageStyle.darkBlueColor} ms-2`}>
               <strong>Start your Carpool Journey</strong>
             </h4>
-            <Input
-              className={"mt-4"}
-              label={"Name"}
-              type={"text"}
-              placeholder={"placeholder"}
-            />
-            <Input
-              className={"mt-4"}
-              label={"Email"}
-              type={"email"}
-              placeholder={"placeholder"}
-            />
-            <Input
-              className={"mt-4"}
-              label={"Password"}
-              type={"password"}
-              placeholder={"placeholder"}
-            />
-            <Input
-              className={"mt-4"}
-              label={"Password Confirm"}
-              type={"password"}
-              placeholder={"placeholder"}
-            />
-            <p className={`${registerPageStyle.smallFont} mt-3`}>
-              By proceeding, you consent to getting text messages and emails
-              from CarpoolSchool at the number and email address you provided,
-              including for marketing purposes. If you no longer wish to receive
-              communications from CarpoolSchool, text “STOP” to a text message
-              or follow instructions to unsubscribe. Please refer to our{" "}
-              <a href="">Privacy Policy</a> for more information.
-            </p>
-            <Button className={"btnStyleA btnRadius5 w-100 mt-2"}>
-              Sign Up
-            </Button>
+            <form onSubmit={handleSubmit}>
+              <Input
+                className={"mt-4"}
+                label={"Name"}
+                type={"text"}
+                inputName={"parentName"}
+                placeholder={"placeholder"}
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value });
+                }}
+              />
+              <Input
+                className={"mt-4"}
+                label={"Email"}
+                type={"email"}
+                inputName={"email"}
+                placeholder={"placeholder"}
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value });
+                }}
+              />
+              <Input
+                className={"mt-4"}
+                label={"Password"}
+                type={"password"}
+                inputName={"password"}
+                placeholder={"placeholder"}
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value });
+                }}
+              />
+              <Input
+                className={"mt-4"}
+                label={"Password Confirmation"}
+                type={"password"}
+                inputName={"passwordConfirm"}
+                placeholder={"placeholder"}
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value });
+                  // TODO
+                  console.log(values);
+                }}
+              />
+              <p className={`${registerPageStyle.smallFont} mt-3`}>
+                By proceeding, you consent to getting text messages and emails
+                from CarpoolSchool at the number and email address you provided,
+                including for marketing purposes. If you no longer wish to
+                receive communications from CarpoolSchool, text “STOP” to a text
+                message or follow instructions to unsubscribe. Please refer to
+                our <a href="">Privacy Policy</a> for more information.
+              </p>
+              <Button
+                className={"btnStyleA btnRadius5 w-100 mt-2"}
+                type={"submit"}
+              >
+                Sign Up
+              </Button>
+            </form>
             <p className={`${registerPageStyle.smallFont} mt-2 text-secondary`}>
               <strong>
                 Already a Carpool Member? <Link to="/login">Sign in</Link>
@@ -159,6 +226,12 @@ const Register = () => {
         </div>
         <Footer />
       </div>
+      <ModalA
+        showModal={showModal}
+        setShowModal={setShowModal}
+        msg={msg}
+        bodyMsg={bodyMsg}
+      />
     </>
   );
 };
