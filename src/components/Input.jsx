@@ -8,6 +8,8 @@ const Input = ({
   placeholder,
   inputRef,
   controlClass,
+  onChange,
+  inputName,
 }) => {
   return (
     <>
@@ -47,6 +49,8 @@ const Input = ({
             placeholder={placeholder}
             ref={inputRef}
             className={controlClass}
+            onChange={onChange}
+            name={inputName}
           />
         </FloatingLabel>
       )}

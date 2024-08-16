@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-function Btn({ children, className }) {
+function Btn({ children, className, type, onClick }) {
   return (
     <>
       <style type="text/css">
@@ -80,7 +80,12 @@ function Btn({ children, className }) {
                     `}
       </style>
 
-      <Button variant="cpStyle" className={className}>
+      <Button
+        variant="cpStyle"
+        className={className}
+        type={type}
+        onClick={onClick}
+      >
         {children}
       </Button>
     </>
