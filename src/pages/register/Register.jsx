@@ -112,7 +112,7 @@ const Register = () => {
               </p>
               <Button
                 className={"btnStyleA btnRadius5 w-100 mt-2"}
-                type={"submit"}
+                type="submit"
               >
                 Sign Up
               </Button>
