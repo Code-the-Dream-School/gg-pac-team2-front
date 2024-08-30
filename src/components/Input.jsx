@@ -23,7 +23,7 @@ const Input = ({
           }
           .inputStyleA {
             border-radius: 45px;
-            padding: 15px 0 15px 60px;
+            padding: 15px 0 15px 65px;
             &:focus + div svg {
               fill: #41c5e7;
             }
@@ -41,6 +41,8 @@ const Input = ({
           placeholder={placeholder}
           ref={inputRef}
           className={controlClass}
+          name={inputName}
+          onChange={onChange}
         />
       ) : (
         <FloatingLabel label={label} className={className}>
