@@ -3,8 +3,8 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import {Link, useNavigate} from "react-router-dom";
 import {useRef, useEffect, useState} from "react";
-import axios from "axios";
 import {Alert} from "react-bootstrap";
+import {login} from "../../services/api.js";
 
 function LoginForm() {
   const emailInputRef = useRef(null);
@@ -17,19 +17,13 @@ function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/auth/login', {
-        email: email,
-        password: password,
-      });
+      const token = await login(email, password);
+      localStorage.setItem('authToken', token);
 
-      if (response.data.token) {
-        localStorage.setItem('authToken', response.data.token);
-        navigate('/dashboard');
-      } else {
-        setError('Login failed.');
-      }
+      //todo: Redirect to dashboard
+      navigate('/rides');
     } catch (error) {
-      setError(error.response.data.msg);
+      setError(error.message);
     }
   };
 
