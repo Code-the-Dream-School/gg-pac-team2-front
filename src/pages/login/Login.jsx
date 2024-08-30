@@ -1,11 +1,37 @@
 import loginPageStyles from "./login.module.css";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { Link, Navigate } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useRef, useEffect, useState} from "react";
+import axios from "axios";
+import {Alert} from "react-bootstrap";
 
 function LoginForm() {
   const emailInputRef = useRef(null);
+
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/api/v1/auth/login', {
+        email: email,
+        password: password,
+      });
+
+      if (response.data.token) {
+        localStorage.setItem('authToken', response.data.token);
+        navigate('/dashboard');
+      } else {
+        setError('Login failed.');
+      }
+    } catch (error) {
+      setError(error.response.data.msg);
+    }
+  };
 
   // useEffect(() => {
   //   emailInputRef.current.focus();
@@ -32,6 +58,8 @@ function LoginForm() {
                   placeholder={"Email"}
                   label={""}
                   type={"text"}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <div
                   className="position-absolute"
@@ -93,6 +121,8 @@ function LoginForm() {
                   placeholder={"Password"}
                   label={""}
                   type={"password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <div
                   className="position-absolute"
@@ -134,9 +164,10 @@ function LoginForm() {
                     </g>
                   </svg>
                 </div>
+                {error &&  <Alert variant={'danger'} className={'mt-3'}>{error}</Alert>}
                 <div className="mt-4 text-start">
                   <Link to={"/"}>
-                    <Button className={`btnStyleA btnRadius25`}>Sign In</Button>
+                    <Button className={`btnStyleA btnRadius25`} onClick={handleSubmit}>Sign In</Button>
                   </Link>
                   <Link className="ps-2" style={{ textDecoration: "none" }}>
                     <strong className={loginPageStyles.lightBlueColor}>
