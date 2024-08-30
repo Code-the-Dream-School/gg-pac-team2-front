@@ -7,6 +7,7 @@ import Info from "./pages/info/Info";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import "./main.css";
+import Rides from "./pages/rides/Rides.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/rides",
+    element: <Rides />,
   },
 ]);
 
