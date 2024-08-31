@@ -6,6 +6,7 @@ import LoginForm from "./pages/login/Login";
 import Info from "./pages/info/Info";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
+import Dashboard from './pages/dashboard/Dashboard.jsx'
 import "./main.css";
 import Rides from "./pages/rides/Rides.jsx";
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
   {
     path: "/rides",
