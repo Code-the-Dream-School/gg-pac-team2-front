@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "http://localhost:8000/api/v1";
+const API_URL = 'http://localhost:8000/api/v1';
 
 export const login = async (email, password) => {
   try {
@@ -12,10 +12,10 @@ export const login = async (email, password) => {
     if (response.data.token) {
       return response.data.token;
     } else {
-      throw new Error("Login failed.");
+      throw new Error('Login failed.');
     }
   } catch (error) {
-    throw new Error(error.response?.data?.msg || "Error during login");
+    throw new Error(error.response?.data?.msg || 'Error during login');
   }
 };
 
@@ -29,6 +29,6 @@ export const getProfiles = async (token) => {
 
     return response.data.users;
   } catch (error) {
-    throw new Error(error.response?.data?.msg || "Error fetching profiles");
+    throw new Error(error.response?.data?.msg || 'Error fetching profiles');
   }
 };

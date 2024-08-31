@@ -1,27 +1,27 @@
 import loginPageStyles from "./login.module.css";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { Link, useNavigate } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
-import { Alert } from "react-bootstrap";
-import { login } from "../../services/api.js";
+import {Link, useNavigate} from "react-router-dom";
+import {useRef, useEffect, useState} from "react";
+import {Alert} from "react-bootstrap";
+import {login} from "../../services/api.js";
 
 function LoginForm() {
   const emailInputRef = useRef(null);
 
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const token = await login(email, password);
-      localStorage.setItem("authToken", token);
+      localStorage.setItem('authToken', token);
 
       //todo: Redirect to dashboard
-      navigate("/rides");
+      navigate('/rides');
     } catch (error) {
       setError(error.message);
     }
@@ -43,7 +43,9 @@ function LoginForm() {
                   <img src="../../images/logo.png" alt="logo" />
                 </Link>
               </div>
-              <div className={`col-12 mt-5 ms-3 ${loginPageStyles.bigText}`}>Sign In</div>
+              <div className={`col-12 mt-5 ms-3 ${loginPageStyles.bigText}`}>
+                Sign In
+              </div>
               <div className="col-8 text-center mt-5 position-relative">
                 <Input
                   controlClass={"inputStyleA"}
@@ -53,7 +55,10 @@ function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div className="position-absolute" style={{ top: "12px", left: "35px", zIndex: "2" }}>
+                <div
+                  className="position-absolute"
+                  style={{ top: "12px", left: "35px", zIndex: "2" }}
+                >
                   <svg
                     width="20px"
                     height="20px"
@@ -64,14 +69,31 @@ function LoginForm() {
                     fill="#000000"
                   >
                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></g>
                     <g id="SVGRepo_iconCarrier">
                       {" "}
-                      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                      <g
+                        id="Page-1"
+                        stroke="none"
+                        strokeWidth="1"
+                        fill="none"
+                        fillRule="evenodd"
+                      >
                         {" "}
-                        <g id="Dribbble-Light-Preview" transform="translate(-340.000000, -922.000000)" fill="#afafaf">
+                        <g
+                          id="Dribbble-Light-Preview"
+                          transform="translate(-340.000000, -922.000000)"
+                          fill="#afafaf"
+                        >
                           {" "}
-                          <g id="icons" transform="translate(56.000000, 160.000000)">
+                          <g
+                            id="icons"
+                            transform="translate(56.000000, 160.000000)"
+                          >
                             {" "}
                             <path
                               d="M294,774.474 L284,765.649 L284,777 L304,777 L304,765.649 L294,774.474 Z M294.001,771.812 L284,762.981 L284,762 L304,762 L304,762.981 L294.001,771.812 Z"
@@ -96,7 +118,10 @@ function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <div className="position-absolute" style={{ top: "12px", left: "35px", zIndex: "2" }}>
+                <div
+                  className="position-absolute"
+                  style={{ top: "12px", left: "35px", zIndex: "2" }}
+                >
                   <svg
                     fill="#afafaf"
                     height="24px"
@@ -109,7 +134,11 @@ function LoginForm() {
                     xmlSpace="preserve"
                   >
                     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></g>
                     <g id="SVGRepo_iconCarrier">
                       {" "}
                       <g>
@@ -129,19 +158,15 @@ function LoginForm() {
                     </g>
                   </svg>
                 </div>
-                {error && (
-                  <Alert variant={"danger"} className={"mt-3"}>
-                    {error}
-                  </Alert>
-                )}
+                {error &&  <Alert variant={'danger'} className={'mt-3'}>{error}</Alert>}
                 <div className="mt-4 text-start">
                   <Link to={"/"}>
-                    <Button className={`btnStyleA btnRadius25`} onClick={handleSubmit}>
-                      Sign In
-                    </Button>
+                    <Button className={`btnStyleA btnRadius25`} onClick={handleSubmit}>Sign In</Button>
                   </Link>
                   <Link className="ps-2" style={{ textDecoration: "none" }}>
-                    <strong className={loginPageStyles.lightBlueColor}>Forget password</strong>
+                    <strong className={loginPageStyles.lightBlueColor}>
+                      Forget password
+                    </strong>
                   </Link>
                 </div>
               </div>

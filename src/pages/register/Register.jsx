@@ -32,7 +32,10 @@ const Register = () => {
       return;
     }
     try {
-      const data = await axios.post("http://localhost:8000/api/v1/auth/register", registerNewUser);
+      const data = await axios.post(
+        "http://localhost:8000/api/v1/auth/register",
+        registerNewUser
+      );
       console.log(data);
     } catch (error) {
       if (error.response) {
@@ -100,12 +103,17 @@ const Register = () => {
                 }}
               />
               <p className={`${registerPageStyle.smallFont} mt-3`}>
-                By proceeding, you consent to getting text messages and emails from CarpoolSchool at the number and
-                email address you provided, including for marketing purposes. If you no longer wish to receive
-                communications from CarpoolSchool, text “STOP” to a text message or follow instructions to unsubscribe.
-                Please refer to our <a href="">Privacy Policy</a> for more information.
+                By proceeding, you consent to getting text messages and emails
+                from CarpoolSchool at the number and email address you provided,
+                including for marketing purposes. If you no longer wish to
+                receive communications from CarpoolSchool, text “STOP” to a text
+                message or follow instructions to unsubscribe. Please refer to
+                our <a href="">Privacy Policy</a> for more information.
               </p>
-              <Button className={"btnStyleA btnRadius5 w-100 mt-2"} type="submit">
+              <Button
+                className={"btnStyleA btnRadius5 w-100 mt-2"}
+                type="submit"
+              >
                 Sign Up
               </Button>
             </form>
@@ -117,16 +125,22 @@ const Register = () => {
           </div>
         </div>
         <div className="mt-3 p-5">
-          Carpooling for school offers multiple benefits, including significant time savings by reducing the number of
-          days parents need to drive. It also promotes community bonding as families connect and collaborate on shared
-          transportation duties. By cutting down on the number of vehicles used, carpooling reduces traffic congestion
-          around schools, leading to a safer environment for students. Additionally, it lowers fuel costs and minimizes
-          wear and tear on vehicles, offering financial savings. Carpooling also contributes to environmental
-          sustainability by decreasing carbon emissions. Overall, it's a convenient, cost-effective, and eco-friendly
-          solution. Carpool school's <a href="#">Terms of Use</a> and certain <a href="#">terms and conditions</a> more
-          fully described here.
+          Carpooling for school offers multiple benefits, including significant
+          time savings by reducing the number of days parents need to drive. It
+          also promotes community bonding as families connect and collaborate on
+          shared transportation duties. By cutting down on the number of
+          vehicles used, carpooling reduces traffic congestion around schools,
+          leading to a safer environment for students. Additionally, it lowers
+          fuel costs and minimizes wear and tear on vehicles, offering financial
+          savings. Carpooling also contributes to environmental sustainability
+          by decreasing carbon emissions. Overall, it's a convenient,
+          cost-effective, and eco-friendly solution. Carpool school's{" "}
+          <a href="#">Terms of Use</a> and certain{" "}
+          <a href="#">terms and conditions</a> more fully described here.
         </div>
-        <div className={`text-center ${registerPageStyle.bigText} ${registerPageStyle.darkBlueColor}`}>
+        <div
+          className={`text-center ${registerPageStyle.bigText} ${registerPageStyle.darkBlueColor}`}
+        >
           <strong>Why School Carpool?</strong>
           <div className="container">
             <div className="row justify-content-center mt-3">
@@ -212,7 +226,12 @@ const Register = () => {
         </div>
         <Footer />
       </div>
-      <ModalA showModal={showModal} setShowModal={setShowModal} msg={msg} bodyMsg={bodyMsg} />
+      <ModalA
+        showModal={showModal}
+        setShowModal={setShowModal}
+        msg={msg}
+        bodyMsg={bodyMsg}
+      />
     </>
   );
 };
