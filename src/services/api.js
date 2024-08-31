@@ -10,7 +10,7 @@ export const login = async (email, password) => {
     });
 
     if (response.data.token) {
-      return response.data.token;
+      return response.data;
     } else {
       throw new Error('Login failed.');
     }

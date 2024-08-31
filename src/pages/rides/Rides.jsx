@@ -5,6 +5,7 @@ import RideList from "../../components/RideList/RideList.jsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getProfiles} from "../../services/api.js";
+import credentials  from "../../util/index.js";
 
 const Rides = () => {
   const navigate = useNavigate();
@@ -13,21 +14,18 @@ const Rides = () => {
 
   useEffect(() => {
     // Retrieve the token from localStorage
-    const token = localStorage.getItem('authToken');
-    if (token) {
-
+    if (credentials.token) {
       const fetchProfiles = async () => {
         try {
-          const userList = await getProfiles(token);
+          const userList = await getProfiles(credentials.token);
           setProfiles(userList);
         } catch (error) {
-          setError('Error fetching users: ' + error.message);
+          setError("Error fetching users: " + error.message);
         }
       };
       fetchProfiles();
-
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   }, []);
 
