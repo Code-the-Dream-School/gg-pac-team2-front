@@ -4,12 +4,10 @@ import Form from "react-bootstrap/Form";
 const Input = ({
   label,
   className,
-  type,
-  placeholder,
   inputRef,
   controlClass,
-  onChange,
   inputName,
+  ...props
 }) => {
   return (
     <>
@@ -37,20 +35,17 @@ const Input = ({
       </style>
       {controlClass == "inputStyleA" ? (
         <Form.Control
-          type={type}
-          placeholder={placeholder}
           ref={inputRef}
           className={controlClass}
+          {...props}
         />
       ) : (
         <FloatingLabel label={label} className={className}>
           <Form.Control
-            type={type}
-            placeholder={placeholder}
             ref={inputRef}
             className={controlClass}
-            onChange={onChange}
             name={inputName}
+            {...props}
           />
         </FloatingLabel>
       )}
