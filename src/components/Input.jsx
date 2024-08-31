@@ -1,16 +1,7 @@
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 
-const Input = ({
-  label,
-  className,
-  type,
-  placeholder,
-  inputRef,
-  controlClass,
-  onChange,
-  inputName,
-}) => {
+const Input = ({ label, className, type, placeholder, inputRef, controlClass, onChange, inputName }) => {
   return (
     <>
       <style type="text/css">
@@ -36,14 +27,7 @@ const Input = ({
         `}
       </style>
       {controlClass == "inputStyleA" ? (
-        <Form.Control
-          type={type}
-          placeholder={placeholder}
-          ref={inputRef}
-          className={controlClass}
-          name={inputName}
-          onChange={onChange}
-        />
+        <Form.Control type={type} placeholder={placeholder} ref={inputRef} className={controlClass} {...props} />
       ) : (
         <FloatingLabel label={label} className={className}>
           <Form.Control
@@ -51,8 +35,8 @@ const Input = ({
             placeholder={placeholder}
             ref={inputRef}
             className={controlClass}
-            onChange={onChange}
             name={inputName}
+            {...props}
           />
         </FloatingLabel>
       )}
