@@ -1,7 +1,7 @@
-const token = localStorage.getItem('authToken');
-const user = localStorage.getItem('authUser');
+const getCredentials = () => {
+  const token = localStorage.getItem('authToken');
+  const user = localStorage.getItem('authUser');
+  return { token, user };
+};
 
-const credentials = {token:token, user:user}
-
-export default credentials;
-
+export default getCredentials;

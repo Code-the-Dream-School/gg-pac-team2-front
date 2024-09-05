@@ -5,7 +5,7 @@ import RideList from "../../components/RideList/RideList.jsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getProfiles} from "../../services/api.js";
-import credentials  from "../../util/index.js";
+import getCredentials  from "../../util/index.js";
 
 const Rides = () => {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ const Rides = () => {
 
   useEffect(() => {
     // Retrieve the token from localStorage
+    const credentials = getCredentials();
     if (credentials.token) {
       const fetchProfiles = async () => {
         try {
