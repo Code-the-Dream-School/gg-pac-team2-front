@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
+
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 const ProfileForm = () => {
@@ -14,6 +15,9 @@ const ProfileForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = useCallback((e) => {
     const { name, value, checked } = e.target;
@@ -66,18 +70,74 @@ const ProfileForm = () => {
     } else if (formData.numberOfSeats < 1 || formData.numberOfSeats > 12) {
       newErrors.numberOfSeats = 'Number of seats must be between 1 and 12';
     }
-    if (formData.dropOffDays.length === 0) newErrors.dropOffDays = 'At least one drop-off day is required';
-    if (formData.pickUpDays.length === 0) newErrors.pickUpDays = 'At least one pick-up day is required';
+    if (!formData.dropOffDays.length) newErrors.dropOffDays = 'At least one drop-off day is required';
+    if (!formData.pickUpDays.length) newErrors.pickUpDays = 'At least one pick-up day is required';
     if (!formData.address) newErrors.address = 'Address is required';
-    if (!formData.phoneNumber) newErrors.phoneNumber = 'Phone number is required';
+    if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone number is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validate()) {
-      console.log('Form Data Submitted:', formData);
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setErrorMessage('No token found, please log in');
+        return;
+      }
+
+    const { parentName, numberOfSeats, address, phoneNumber, childrenNames, dropOffDays, pickUpDays } = formData;
+
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:8000/api/v1/profile', {
+          method: 'PATCH',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+          parentName,
+          numberOfSeats,
+          address,
+          phoneNumber,
+          childrenNames,
+          dropOffDays,
+          pickUpDays
+          }),
+        });
+
+        setLoading(false);
+  
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Profile updated:', data);
+
+        // Handle success feedback
+        setSuccessMessage('Profile updated successfully!');
+        setErrorMessage(''); // Clear any previous errors
+        setFormData({
+          parentName: '',
+          childrenNames: [''],
+          numberOfSeats: '',
+          dropOffDays: [],
+          pickUpDays: [],
+          address: '',
+          phoneNumber: '',
+        });
+
+      } else {
+        const errorMessage = await response.text();
+        setErrorMessage(`Server error: ${response.statusText} - ${errorMessage}`);
+        setSuccessMessage('');  // Clear any previous success
+      }
+    } catch (error) {
+      setLoading(false); // Hide loading state on error
+      setErrorMessage(`Network error: ${error.message}`);
+      setSuccessMessage('');  // Clear any previous success
+      }
     }
   };
 
@@ -92,11 +152,17 @@ const ProfileForm = () => {
       phoneNumber: '',
     });
     setErrors({});
+    setSuccessMessage('');
+    setErrorMessage('');
   };
 
   return (
     <div className="container">
       <h1 className="text-center mt-4">Profile Page</h1>
+
+      {successMessage && <div className="alert alert-success">{successMessage}</div>}
+      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Parent Name</label>
@@ -200,11 +266,14 @@ const ProfileForm = () => {
             value={formData.phoneNumber}
             onChange={handleChange}
             inputMode="numeric"
-            pattern="[0-9]*"
+            pattern="\d{10}"
+            title="Please enter a 10-digit phone number"
           />
           {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
         </div>
-        <button type="submit" className="btn btn-primary me-2">Submit</button>
+        <button type="submit" className="btn btn-primary me-2"disabled={loading}>
+        {loading ? 'Submitting...' : 'Submit'}
+        </button>
         <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
