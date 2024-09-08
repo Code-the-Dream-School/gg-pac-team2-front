@@ -17,9 +17,9 @@ const RideList = ({ rides }) => {
         <Card key={ride._id} className="mb-3">
           <Card.Body>
             <Card.Title>{ride.parentName}</Card.Title>
-            <Card.Text>Address: {ride.departure}</Card.Text>
-            <Card.Text>Destination: {ride.destination}</Card.Text>
-            <Card.Text>Time: {ride.departureTime}</Card.Text>
+            <Card.Text>Destination: {'Community Middle School'}</Card.Text>
+            <Card.Text>Address: {ride.neighborhood}</Card.Text>
+            <Card.Text>Available Pick-Up Days: {ride.availablePickUpDays.join(", ")}</Card.Text>
             <Card.Text>Seats available: {ride.numberOfSeatsInCar}</Card.Text>
             <Button
               className={'btnStyleA btnRadius25'}
