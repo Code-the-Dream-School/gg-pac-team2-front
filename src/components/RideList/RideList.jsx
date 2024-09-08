@@ -21,13 +21,19 @@ const RideList = ({ rides }) => {
             <Card.Text>Address: {ride.neighborhood}</Card.Text>
             <Card.Text>Available Pick-Up Days: {ride.availablePickUpDays.join(", ")}</Card.Text>
             <Card.Text>Seats available: {ride.numberOfSeatsInCar}</Card.Text>
-            <Button
-              className={'btnStyleA btnRadius25'}
-              onClick={() => handleSelectRide(ride.id)}
-              disabled={ride.numberOfSeatsInCar === 0}
-            >
-              {ride.numberOfSeatsInCar > 0 ? "Request for ride" : "No seats available"}
-            </Button>
+            {
+              ride.numberOfSeatsInCar > 0 ?
+                <Button
+                  className={'btnStyleA btnRadius25'}
+                  onClick={() => handleSelectRide(ride._id)}>
+                  Request for ride
+                </Button> :
+                <Button
+                  className={'btnDisabled btnRadius25'}
+                  disabled={true}>
+                  No seats available
+                </Button>
+            }
           </Card.Body>
         </Card>
       ))}
