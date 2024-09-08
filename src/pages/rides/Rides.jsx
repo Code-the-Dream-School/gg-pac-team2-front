@@ -1,18 +1,32 @@
 import Menu from "../../components/Menu.jsx";
 import Footer from "../../components/Footer.jsx";
-import {Alert, Container} from "react-bootstrap";
+import {Alert, Container, ButtonGroup, Button} from "react-bootstrap";
 import RideList from "../../components/RideList/RideList.jsx";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getProfiles} from "../../services/api.js";
 import getCredentials  from "../../util/index.js";
 
+// Function to get the name of the day of the week
+const getTodayDay = () => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date().getDay(); // 0 - Sunday, 6 - Saturday
+  return days[today];
+};
+
 const Rides = () => {
   const navigate = useNavigate();
   const [profiles, setProfiles] = useState([]);
   const [error, setError] = useState('');
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
+  const [selectedDay, setSelectedDay] = useState('');
 
   useEffect(() => {
+    const today = getTodayDay();
+    // If today is a day off (Saturday or Sunday), Monday is active
+    const defaultDay = (today === 'Saturday' || today === 'Sunday') ? 'Monday' : today;
+    setSelectedDay(defaultDay);
+
     // Retrieve the token from localStorage
     const credentials = getCredentials();
     if (credentials.token) {
@@ -30,17 +44,42 @@ const Rides = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (profiles.length > 0 && selectedDay) {
+      const filtered = profiles.filter(profile =>
+        profile.availablePickUpDays.includes(selectedDay)
+      );
+      setFilteredProfiles(filtered);
+    }
+  }, [profiles, selectedDay]);
+
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
   return (
     <div>
       <Menu />
 
-      <Container>
-        <h1 className={'mt-5'}>Find a ride</h1>
-        {error &&  <Alert variant={'danger'} className={'mt-3'}>{error}</Alert>}
-        <RideList rides={profiles} />
+      <Container className={'mb-4'}>
+        <h1 className={'mt-4 text-center'}>Find a ride</h1>
+        {error &&  <Alert variant={'danger'} className={'mt-4'}>{error}</Alert>}
+
+        {/*Days of week switcher*/}
+        <ButtonGroup className={'mt-4'}>
+          {daysOfWeek.map(day => (
+            <Button
+              key={day}
+              className={selectedDay === day ? 'btnStyleA' : 'btnStyleA-outline'}
+              onClick={() => setSelectedDay(day)}
+            >
+              {day}
+            </Button>
+          ))}
+        </ButtonGroup>
+
+        <RideList rides={filteredProfiles}/>
       </Container>
 
-      <Footer />
+      <Footer/>
     </div>
   );
 }

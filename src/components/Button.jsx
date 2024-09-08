@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-function Btn({ children, className, type, onClick }) {
+function Btn({ children, ...props }) {
   return (
     <>
       <style type="text/css">
@@ -77,14 +77,32 @@ function Btn({ children, className, type, onClick }) {
                             color: #1a4a7a;
                         }
                     }
+                    .btnDisabled {
+                        border: 1px solid;
+                        padding: 15px 40px;
+                    }
+                    .btnStyleA-outline {
+                        background-color: transparent;
+                        border: 1px solid #41c5e7;
+                        color: #41c5e7;
+                        padding: 15px 40px;
+                        font-size: 1rem;
+                        font-weight: 700;
+                    
+                        &:hover, &:focus {
+                          background-color: #41c5e7;
+                          border-color: #41c5e7;
+                          color: white;
+                          text-shadow: 1px 1px 10px white;
+                        }
+                      }
+                    }
                     `}
       </style>
 
       <Button
         variant="cpStyle"
-        className={className}
-        type={type}
-        onClick={onClick}
+        {...props}
       >
         {children}
       </Button>
