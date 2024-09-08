@@ -16,7 +16,6 @@ const ProfileForm = () => {
     availablePickUpDays: [],
     address: '',
     phoneNumber: '',
-    email: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -105,7 +104,7 @@ const ProfileForm = () => {
         return;
       }
 
-    const { parentName, numberOfSeatsInCar, address, phoneNumber, childrenNames, availableDropOffDays, availablePickUpDays , email} = formData;
+    const { parentName, numberOfSeatsInCar, address, phoneNumber, childrenNames, availableDropOffDays, availablePickUpDays} = formData;
 
       try {
         setLoading(true);
@@ -120,7 +119,6 @@ const ProfileForm = () => {
           numberOfSeatsInCar,
           neighborhood: address,
           phoneNumber,
-          email,
           childrenNames,
           availableDropOffDays,
           availablePickUpDays
@@ -144,7 +142,6 @@ const ProfileForm = () => {
           availablePickUpDays: [],
           address: '',
           phoneNumber: '',
-          email: '',
         });
 
       } else {
@@ -169,7 +166,6 @@ const ProfileForm = () => {
       availablePickUpDays: [],
       address: '',
       phoneNumber: '',
-      email: '',
     });
     setErrors({});
     setSuccessMessage('');
@@ -293,19 +289,6 @@ const ProfileForm = () => {
             title="Please enter a 10-digit phone number"
           />
           {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Email</label>
-          <input
-            type="tel"
-            className="form-control"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            inputMode="text"
-            title="Please enter email"
-          />
-          {errors.email && <div className="text-danger">{errors.email}</div>}
         </div>
         <button type="submit" className="btn btn-primary me-2" disabled={loading}>
           {loading ? 'Submitting...' : 'Submit'}
