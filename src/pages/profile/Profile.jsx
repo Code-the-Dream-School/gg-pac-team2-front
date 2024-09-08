@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import Menu from "../../components/Menu.jsx";
+import Footer from "../../components/Footer.jsx";
 
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -7,11 +9,12 @@ const ProfileForm = () => {
   const [formData, setFormData] = useState({
     parentName: '',
     childrenNames: [''],
-    numberOfSeats: '',
-    dropOffDays: [],
-    pickUpDays: [],
+    numberOfSeatsInCar: '',
+    availableDropOffDays: [],
+    availablePickUpDays: [],
     address: '',
     phoneNumber: '',
+    email: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -22,7 +25,7 @@ const ProfileForm = () => {
   const handleChange = useCallback((e) => {
     const { name, value, checked } = e.target;
     setFormData((prevState) => {
-      if (name === 'dropOffDays' || name === 'pickUpDays') {
+      if (name === 'availableDropOffDays' || name === 'availablePickUpDays') {
         return {
           ...prevState,
           [name]: checked
@@ -65,13 +68,13 @@ const ProfileForm = () => {
     const newErrors = {};
     if (!formData.parentName) newErrors.parentName = 'Parent name is required';
     if (formData.childrenNames.some((name) => !name)) newErrors.childrenNames = 'All children\'s names are required';
-    if (!formData.numberOfSeats) {
-      newErrors.numberOfSeats = 'Number of seats is required';
-    } else if (formData.numberOfSeats < 1 || formData.numberOfSeats > 12) {
-      newErrors.numberOfSeats = 'Number of seats must be between 1 and 12';
+    if (!formData.numberOfSeatsInCar) {
+      newErrors.numberOfSeatsInCar = 'Number of seats is required';
+    } else if (formData.numberOfSeatsInCar < 1 || formData.numberOfSeatsInCar > 12) {
+      newErrors.numberOfSeatsInCar = 'Number of seats must be between 1 and 12';
     }
-    if (!formData.dropOffDays.length) newErrors.dropOffDays = 'At least one drop-off day is required';
-    if (!formData.pickUpDays.length) newErrors.pickUpDays = 'At least one pick-up day is required';
+    if (!formData.availableDropOffDays.length) newErrors.availableDropOffDays = 'At least one drop-off day is required';
+    if (!formData.availablePickUpDays.length) newErrors.availablePickUpDays = 'At least one pick-up day is required';
     if (!formData.address) newErrors.address = 'Address is required';
     if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone number is required';
     setErrors(newErrors);
@@ -88,7 +91,7 @@ const ProfileForm = () => {
         return;
       }
 
-    const { parentName, numberOfSeats, address, phoneNumber, childrenNames, dropOffDays, pickUpDays } = formData;
+    const { parentName, numberOfSeatsInCar, address, phoneNumber, childrenNames, availableDropOffDays, availablePickUpDays , email} = formData;
 
       try {
         setLoading(true);
@@ -100,12 +103,13 @@ const ProfileForm = () => {
           },
           body: JSON.stringify({
           parentName,
-          numberOfSeats,
-          address,
+          numberOfSeatsInCar,
+          neighborhood: address,
           phoneNumber,
+          email,
           childrenNames,
-          dropOffDays,
-          pickUpDays
+          availableDropOffDays,
+          availablePickUpDays
           }),
         });
 
@@ -121,11 +125,12 @@ const ProfileForm = () => {
         setFormData({
           parentName: '',
           childrenNames: [''],
-          numberOfSeats: '',
-          dropOffDays: [],
-          pickUpDays: [],
+          numberOfSeatsInCar: '',
+          availableDropOffDays: [],
+          availablePickUpDays: [],
           address: '',
           phoneNumber: '',
+          email: '',
         });
 
       } else {
@@ -145,11 +150,12 @@ const ProfileForm = () => {
     setFormData({
       parentName: '',
       childrenNames: [''],
-      numberOfSeats: '',
-      dropOffDays: [],
-      pickUpDays: [],
+      numberOfSeatsInCar: '',
+      availableDropOffDays: [],
+      availablePickUpDays: [],
       address: '',
       phoneNumber: '',
+      email: '',
     });
     setErrors({});
     setSuccessMessage('');
@@ -157,7 +163,10 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="container">
+    <div>
+      <Menu />
+
+        <div className="container mb-4">
       <h1 className="text-center mt-4">Profile Page</h1>
 
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
@@ -204,13 +213,13 @@ const ProfileForm = () => {
           <input
             type="number"
             className="form-control"
-            name="numberOfSeats"
-            value={formData.numberOfSeats}
+            name="numberOfSeatsInCar"
+            value={formData.numberOfSeatsInCar}
             onChange={handleChange}
             min="1"
             max="12"
           />
-          {errors.numberOfSeats && <div className="text-danger">{errors.numberOfSeats}</div>}
+          {errors.numberOfSeatsInCar && <div className="text-danger">{errors.numberOfSeatsInCar}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Available Drop-Off Days</label>
@@ -219,15 +228,15 @@ const ProfileForm = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                name="dropOffDays"
+                name="availableDropOffDays"
                 value={day}
                 onChange={handleChange}
-                checked={formData.dropOffDays.includes(day)}
+                checked={formData.availableDropOffDays.includes(day)}
               />
               <label className="form-check-label">{day}</label>
             </div>
           ))}
-          {errors.dropOffDays && <div className="text-danger">{errors.dropOffDays}</div>}
+          {errors.availableDropOffDays && <div className="text-danger">{errors.availableDropOffDays}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Available Pick-Up Days</label>
@@ -236,15 +245,15 @@ const ProfileForm = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                name="pickUpDays"
+                name="availablePickUpDays"
                 value={day}
                 onChange={handleChange}
-                checked={formData.pickUpDays.includes(day)}
+                checked={formData.availablePickUpDays.includes(day)}
               />
               <label className="form-check-label">{day}</label>
             </div>
           ))}
-          {errors.pickUpDays && <div className="text-danger">{errors.pickUpDays}</div>}
+          {errors.availablePickUpDays && <div className="text-danger">{errors.availablePickUpDays}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Address</label>
@@ -271,11 +280,27 @@ const ProfileForm = () => {
           />
           {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
         </div>
-        <button type="submit" className="btn btn-primary me-2"disabled={loading}>
-        {loading ? 'Submitting...' : 'Submit'}
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
+            type="tel"
+            className="form-control"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            inputMode="text"
+            title="Please enter email"
+          />
+          {errors.email && <div className="text-danger">{errors.email}</div>}
+        </div>
+        <button type="submit" className="btn btn-primary me-2" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
         <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
       </form>
+    </div>
+
+      <Footer />
     </div>
   );
 };
