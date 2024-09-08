@@ -11,8 +11,16 @@ const RideList = ({ rides }) => {
     //todo: API request
   };
 
+  if (rides.length === 0) {
+    return (
+      <ListGroup className={'mt-4'}>
+        No rides available.
+      </ListGroup>
+    );
+  }
+
   return (
-    <ListGroup>
+    <ListGroup className={'mt-4'}>
       {rides.map(ride => (
         <Card key={ride._id} className="mb-3">
           <Card.Body>

@@ -81,6 +81,22 @@ function Btn({ children, ...props }) {
                         border: 1px solid;
                         padding: 15px 40px;
                     }
+                    .btnStyleA-outline {
+                        background-color: transparent;
+                        border: 1px solid #41c5e7;
+                        color: #41c5e7;
+                        padding: 15px 40px;
+                        font-size: 1rem;
+                        font-weight: 700;
+                    
+                        &:hover, &:focus {
+                          background-color: #41c5e7;
+                          border-color: #41c5e7;
+                          color: white;
+                          text-shadow: 1px 1px 10px white;
+                        }
+                      }
+                    }
                     `}
       </style>
 
