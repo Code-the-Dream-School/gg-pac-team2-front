@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 
-function Btn({ children, className, type, onClick }) {
+function Btn({ children, ...props }) {
   return (
     <>
       <style type="text/css">
@@ -77,14 +77,16 @@ function Btn({ children, className, type, onClick }) {
                             color: #1a4a7a;
                         }
                     }
+                    .btnDisabled {
+                        border: 1px solid;
+                        padding: 15px 40px;
+                    }
                     `}
       </style>
 
       <Button
         variant="cpStyle"
-        className={className}
-        type={type}
-        onClick={onClick}
+        {...props}
       >
         {children}
       </Button>
