@@ -9,6 +9,8 @@ import Profile from "./pages/profile/Profile";
 import Dashboard from './pages/dashboard/Dashboard.jsx'
 import "./main.css";
 import Rides from "./pages/rides/Rides.jsx";
+import ForgetPassword from "./pages/forgetPassword/forgetPassword.jsx";
+import ResetPassword from "./pages/resetPassword/resetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
     path: "/rides",
     element: <Rides />,
   },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword />
+  },
+  {
+    path: "/reset-password/:userId/:token",
+    element: <ResetPassword />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
