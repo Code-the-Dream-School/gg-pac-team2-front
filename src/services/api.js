@@ -42,7 +42,7 @@ export const sendPasswordResetLink = async (email) => {
     if (response.status === 200) {
       return {
         success: true,
-        message: "Reset Link has been sent to your email ID."
+        message: "Reset Link has been sent to your email."
       }
     }
   } catch (error) {

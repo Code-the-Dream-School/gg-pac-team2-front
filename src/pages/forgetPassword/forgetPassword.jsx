@@ -49,7 +49,7 @@ const ForgetPassword = () => {
               <div className="col-8 text-center mt-5 position-relative">
                 <Input
                   controlClass={"inputStyleA"}
-                  placeholder={"Enter Valid Email ID"}
+                  placeholder={"Enter Valid Email"}
                   label={""}
                   type={"text"}
                   value={email}
