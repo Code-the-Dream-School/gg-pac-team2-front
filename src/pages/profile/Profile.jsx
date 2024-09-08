@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import Menu from "../../components/Menu.jsx";
 import Footer from "../../components/Footer.jsx";
+import getCredentials from "../../util/index.js";
+import {useNavigate} from "react-router-dom";
 
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -21,6 +23,18 @@ const ProfileForm = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    // Retrieve the token from localStorage
+    const credentials = getCredentials();
+    if (credentials.token) {
+      //todo: fetch profile data from API
+
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   const handleChange = useCallback((e) => {
     const { name, value, checked } = e.target;
