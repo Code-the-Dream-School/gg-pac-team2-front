@@ -1,8 +1,10 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import Menu from "../../components/Menu.jsx";
+import { Link } from 'react-router-dom';
 import Footer from "../../components/Footer.jsx";
-import getCredentials from "../../util/index.js";
+import {getCredentials} from "../../util/index.js";
 import {useNavigate} from "react-router-dom";
+import SideMenu from "../../components/SideMenu";
+
 
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -173,129 +175,140 @@ const ProfileForm = () => {
   };
 
   return (
-    <div>
-      <Menu />
+    <div className="container-fluid">
+      <div className="p-4 shadow row">
+        <div className="col-9">
+          <SideMenu />
+          &nbsp;
+          <Link to={"/"}>
+            <img src="../../images/logo.png" alt="logo" />
+          </Link>
+        </div>
+      </div>
+      <div className="container mb-4">
+        <h1 className="text-center mt-4">Profile Page</h1>
 
-        <div className="container mb-4">
-      <h1 className="text-center mt-4">Profile Page</h1>
+        {successMessage && <div className="alert alert-success">{successMessage}</div>}
+        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-      {successMessage && <div className="alert alert-success">{successMessage}</div>}
-      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Parent Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="parentName"
-            value={formData.parentName}
-            onChange={handleChange}
-          />
-          {errors.parentName && <div className="text-danger">{errors.parentName}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Children's Names</label>
-          {formData.childrenNames.map((childName, index) => (
-            <div key={index} className="d-flex mb-2">
-              <input
-                type="text"
-                className="form-control"
-                name="childrenNames"
-                value={childName}
-                onChange={(e) => handleChildNameChange(e, index)}
-              />
-              <button
-                type="button"
-                className="btn btn-danger ms-2"
-                onClick={() => handleRemoveChild(index)}
-                disabled={formData.childrenNames.length === 1}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-          <button type="button" className="btn btn-secondary" onClick={handleAddChild}>Add Child</button>
-          {errors.childrenNames && <div className="text-danger">{errors.childrenNames}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Number of Seats in Car</label>
-          <input
-            type="number"
-            className="form-control"
-            name="numberOfSeatsInCar"
-            value={formData.numberOfSeatsInCar}
-            onChange={handleChange}
-            min="1"
-            max="12"
-          />
-          {errors.numberOfSeatsInCar && <div className="text-danger">{errors.numberOfSeatsInCar}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Available Drop-Off Days</label>
-          {daysOfWeek.map((day) => (
-            <div className="form-check" key={day}>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="availableDropOffDays"
-                value={day}
-                onChange={handleChange}
-                checked={formData.availableDropOffDays.includes(day)}
-              />
-              <label className="form-check-label">{day}</label>
-            </div>
-          ))}
-          {errors.availableDropOffDays && <div className="text-danger">{errors.availableDropOffDays}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Available Pick-Up Days</label>
-          {daysOfWeek.map((day) => (
-            <div className="form-check" key={day}>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="availablePickUpDays"
-                value={day}
-                onChange={handleChange}
-                checked={formData.availablePickUpDays.includes(day)}
-              />
-              <label className="form-check-label">{day}</label>
-            </div>
-          ))}
-          {errors.availablePickUpDays && <div className="text-danger">{errors.availablePickUpDays}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Address</label>
-          <input
-            type="text"
-            className="form-control"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-          />
-          {errors.address && <div className="text-danger">{errors.address}</div>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Phone Number</label>
-          <input
-            type="tel"
-            className="form-control"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            inputMode="numeric"
-            pattern="\d{10}"
-            title="Please enter a 10-digit phone number"
-          />
-          {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
-        </div>
-        <button type="submit" className="btn btn-primary me-2" disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit'}
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Parent Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="parentName"
+              value={formData.parentName}
+              onChange={handleChange}
+            />
+            {errors.parentName && <div className="text-danger">{errors.parentName}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Children's Names</label>
+            {formData.childrenNames.map((childName, index) => (
+              <div key={index} className="d-flex mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="childrenNames"
+                  value={childName}
+                  onChange={(e) => handleChildNameChange(e, index)}
+                />
+                <button
+                  type="button"
+                  className="btn btn-danger ms-2"
+                  onClick={() => handleRemoveChild(index)}
+                  disabled={formData.childrenNames.length === 1}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type="button" className="btn btn-secondary" onClick={handleAddChild}>
+              Add Child
+            </button>
+            {errors.childrenNames && <div className="text-danger">{errors.childrenNames}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Number of Seats in Car</label>
+            <input
+              type="number"
+              className="form-control"
+              name="numberOfSeatsInCar"
+              value={formData.numberOfSeatsInCar}
+              onChange={handleChange}
+              min="1"
+              max="12"
+            />
+            {errors.numberOfSeatsInCar && <div className="text-danger">{errors.numberOfSeatsInCar}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Available Drop-Off Days</label>
+            {daysOfWeek.map((day) => (
+              <div className="form-check" key={day}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="availableDropOffDays"
+                  value={day}
+                  onChange={handleChange}
+                  checked={formData.availableDropOffDays.includes(day)}
+                />
+                <label className="form-check-label">{day}</label>
+              </div>
+            ))}
+            {errors.availableDropOffDays && <div className="text-danger">{errors.availableDropOffDays}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Available Pick-Up Days</label>
+            {daysOfWeek.map((day) => (
+              <div className="form-check" key={day}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="availablePickUpDays"
+                  value={day}
+                  onChange={handleChange}
+                  checked={formData.availablePickUpDays.includes(day)}
+                />
+                <label className="form-check-label">{day}</label>
+              </div>
+            ))}
+            {errors.availablePickUpDays && <div className="text-danger">{errors.availablePickUpDays}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+            {errors.address && <div className="text-danger">{errors.address}</div>}
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Phone Number</label>
+            <input
+              type="tel"
+              className="form-control"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              inputMode="numeric"
+              pattern="\d{10}"
+              title="Please enter a 10-digit phone number"
+            />
+            {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
+          </div>
+          <button type="submit" className="btn btn-primary me-2" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+            Cancel
+          </button>
+        </form>
+      </div>
 
       <Footer />
     </div>
