@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { login } from "../../services/api.js";
-import { setCredentials } from "../../util";
+import { setCredentials, getCredentials } from "../../util";
 
 function LoginForm() {
   const emailInputRef = useRef(null);
@@ -26,6 +26,12 @@ function LoginForm() {
       setError(error.message);
     }
   };
+
+    useEffect(() => {
+      if (getCredentials().token && getCredentials().user) {
+        navigate("/dashboard");
+      }
+    },[]);
 
   return (
     <>

@@ -10,4 +10,8 @@ const getCredentials = () => {
   return { token, user };
 };
 
-export { getCredentials, setCredentials };
+const terminate = () => {
+  localStorage.clear()
+};
+
+export { getCredentials, setCredentials, terminate };
