@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { login } from "../../services/api.js";
+import { setCredentials } from "../../util";
 
 function LoginForm() {
   const emailInputRef = useRef(null);
@@ -18,20 +19,13 @@ function LoginForm() {
     event.preventDefault();
     try {
       const response = await login(email, password);
-
-      localStorage.setItem("authToken", response.token);
-      localStorage.setItem("authUser", response.user.name);
-
-      //todo: Redirect to dashboard
-      navigate("/rides");
+      setCredentials(response.token, response.user.name);
+      navigate("/dashboard");
+      navigate(0);
     } catch (error) {
       setError(error.message);
     }
   };
-
-  // useEffect(() => {
-  //   emailInputRef.current.focus();
-  // }, []);
 
   return (
     <>
@@ -131,7 +125,7 @@ function LoginForm() {
                       Sign In
                     </Button>
                   </Link>
-                  <Link className="ps-2" style={{ textDecoration: "none" }} to={"/forget-password"}>
+                  <Link className="ps-2" style={{ textDecoration: "none" }}>
                     <strong className={loginPageStyles.lightBlueColor}>Forget password</strong>
                   </Link>
                 </div>
