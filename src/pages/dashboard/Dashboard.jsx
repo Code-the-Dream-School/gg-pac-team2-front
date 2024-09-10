@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getCredentials } from "../../util";
 import netImage from "../../../images/net.png";
 import SideMenu from "../../components/SideMenu";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!getCredentials().token || !getCredentials().user) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <style type="text/css">
@@ -14,7 +22,8 @@ const Dashboard = () => {
       <div className="container-fluid">
         <div className="p-4 shadow row">
           <div className="col-9">
-            <SideMenu />&nbsp;
+            <SideMenu />
+            &nbsp;
             <Link to={"/"}>
               <img src="../../images/logo.png" alt="logo" />
             </Link>
