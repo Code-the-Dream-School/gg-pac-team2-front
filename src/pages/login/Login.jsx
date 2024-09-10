@@ -131,7 +131,7 @@ function LoginForm() {
                       Sign In
                     </Button>
                   </Link>
-                  <Link className="ps-2" style={{ textDecoration: "none" }}>
+                  <Link className="ps-2" style={{ textDecoration: "none" }} to={"/forget-password"}>
                     <strong className={loginPageStyles.lightBlueColor}>Forget password</strong>
                   </Link>
                 </div>
