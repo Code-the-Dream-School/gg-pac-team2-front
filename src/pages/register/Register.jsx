@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Menu from "../../components/Menu";
 import Footer from "../../components/Footer";
 import ModalA from "../../components/ModalA";
@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import registerPageStyle from "./register.module.css";
 import axios from "axios";
-import {setCredentials} from "../../util"
+import { setCredentials, getCredentials } from "../../util";
 
 const Register = () => {
   const [showModal, setShowModal] = useState(false);
@@ -51,6 +51,12 @@ const Register = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (getCredentials().token && getCredentials().user) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   return (
     <>
