@@ -3,7 +3,6 @@ import Footer from "../../components/Footer.jsx";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from 'react';
 
-
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 const ProfileForm = () => {
@@ -165,8 +164,6 @@ const ProfileForm = () => {
         setErrorMessage('No token found, please log in');
         return;
       }
-
-    
 
       try {
         setLoading(true);
@@ -432,7 +429,7 @@ const ProfileForm = () => {
     )}
         <div>
           <button type="submit" className="btn btn-success me-2"disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit'}
+            {loading ? 'Submitting...' : 'Submit'}
           </button>
           <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
         </div>
