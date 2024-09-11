@@ -35,7 +35,8 @@ export const getProfiles = async (token) => {
   }
 };
 
-export const sendPasswordResetLink = async (email) => {
+export const sendPasswordResetLink = async (email) => {  
+  
   try {
     const response = await axios.post(`${API_URL}/auth/forgot-password`, {
       email,
