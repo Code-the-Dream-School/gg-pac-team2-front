@@ -1,3 +1,5 @@
+
+
 body,
 html {
   height: 100%;
@@ -9,4 +11,48 @@ html {
 #root {
   height: 100%;
   width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  body, html {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    padding: 10px;
+  }
+
+  h1, h2, p {
+    text-align: center;
+  }
+
+  .col-3, .col-5, .col-2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .loginBtn, .demoBtn {
+    width: 100% !important;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .ps-5 {
+    padding-left: 10px !important;
+  }
+
+  col-12 {
+    text-align: center;
+  }
+
+  .carousel {
+    display: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }

@@ -1,10 +1,10 @@
-import Button from "../../components/Button";
-import infoPageStyle from "./info.module.css";
-import React, { useEffect } from "react";
-import CountUp from "react-countup";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { Link } from "react-router-dom";
+import Button from '../../components/Button';
+import infoPageStyle from './info.module.css';
+import React, { useEffect } from 'react';
+import CountUp from 'react-countup';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { Link } from 'react-router-dom';
 
 function Info() {
   useEffect(() => {
@@ -26,9 +26,9 @@ function Info() {
                   className={`monsFont text-center ${infoPageStyle.bigText} ${infoPageStyle.lSpace15} ${infoPageStyle.darkBlueColor}`}
                 >
                   <strong>
-                    We're setting the bar{" "}
+                    We're setting the bar{' '}
                     <span className={infoPageStyle.lightBlueColor}>
-                      above and beyond{" "}
+                      above and beyond{' '}
                     </span>
                     for safe youth transportation solutions.
                   </strong>
@@ -47,7 +47,9 @@ function Info() {
                             enableScrollSpy={true}
                             scrollSpyOnce={true}
                           >
-                            {({ countUpRef }) => <span ref={countUpRef} />}
+                            {({ countUpRef }) => (
+                              <span ref={countUpRef} />
+                            )}
                           </CountUp>
                           K+
                         </strong>
@@ -68,7 +70,9 @@ function Info() {
                             enableScrollSpy={true}
                             scrollSpyOnce={true}
                           >
-                            {({ countUpRef }) => <span ref={countUpRef} />}
+                            {({ countUpRef }) => (
+                              <span ref={countUpRef} />
+                            )}
                           </CountUp>
                           K+
                         </strong>
@@ -89,7 +93,9 @@ function Info() {
                             enableScrollSpy={true}
                             scrollSpyOnce={true}
                           >
-                            {({ countUpRef }) => <span ref={countUpRef} />}
+                            {({ countUpRef }) => (
+                              <span ref={countUpRef} />
+                            )}
                           </CountUp>
                           +
                         </strong>
@@ -193,25 +199,27 @@ function Info() {
                   communities,
                 </div>
                 <div>
-                  schools, non-profits, and government agencies that we support
-                  through safe,
+                  schools, non-profits, and government agencies that
+                  we support through safe,
                 </div>
                 <div>reliable student transportation.</div>
               </div>
               <div className="text-center mt-5">
-                <Link to={"/register"}>
-                  <Button className={`btnStyleA btnRadius25`}>Join Now</Button>
+                <Link to={'/register'}>
+                  <Button className={`btnStyleA btnRadius25`}>
+                    Join Now
+                  </Button>
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h1
-        className={`text-center mt-5 ${infoPageStyle.bigText} ${infoPageStyle.darkBlueColor}`}
+      {/* <h1
+        className={`hideHeader text-center mt-5 ${infoPageStyle.bigText} ${infoPageStyle.darkBlueColor}`}
       >
         <strong>In Their Words</strong>
-      </h1>
+      </h1> */}
     </div>
   );
 }

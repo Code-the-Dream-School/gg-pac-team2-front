@@ -35,3 +35,22 @@
 .dropdown:hover .dropdownContent {
   display: block;
 }
+
+@media only screen and (max-width: 600px) {
+  .navbar {
+    position: relative;
+    z-index: 100;
+  }
+
+  .navbar a, .dropdown {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .dropdownContent {
+    width: 100%;
+    padding: 10px;
+  }
+}

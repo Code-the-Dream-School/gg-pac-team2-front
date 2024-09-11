@@ -5,3 +5,13 @@ html {
   font-family: "Montserrat", sans-serif;
   background-color: #eefbfb;
 }
+
+@media only screen and (max-width: 600px) {
+  body,
+  html {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+}

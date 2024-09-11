@@ -1,4 +1,4 @@
-import Button from "react-bootstrap/Button";
+import Button from 'react-bootstrap/Button';
 
 function Btn({ children, ...props }) {
   return (
@@ -11,7 +11,7 @@ function Btn({ children, ...props }) {
                         padding: 15px 40px;
                         font-size: 1rem;
                         font-weight: 700;
-                    
+
                     &:hover {
                         background-color: #41c5e7;
                         color: white;
@@ -88,7 +88,7 @@ function Btn({ children, ...props }) {
                         padding: 15px 40px;
                         font-size: 1rem;
                         font-weight: 700;
-                    
+
                         &:hover, &:focus {
                           background-color: #41c5e7;
                           border-color: #41c5e7;
@@ -100,10 +100,7 @@ function Btn({ children, ...props }) {
                     `}
       </style>
 
-      <Button
-        variant="cpStyle"
-        {...props}
-      >
+      <Button variant="cpStyle" {...props}>
         {children}
       </Button>
     </>

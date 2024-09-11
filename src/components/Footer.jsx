@@ -208,7 +208,26 @@ const Footer = () => {
                         -webkit-animation: myfirst 30s linear infinite;
                         animation: myfirst 30s linear infinite;
                     }
-                        
+
+                    @ media only screen and (max-width: 600px) {
+                      .new_footer_top {
+                        padding: 40px 0px 60px;
+                      }
+
+                      .footer_bottom {
+                        font-size: 12px;
+                        padding: 15px 0;
+                      }
+
+                      .f_widget {
+                        text-align: center;
+                        margin-bottom: 15px;
+                      }
+
+                      .f_social_icon {
+                        margin: 0 auto;
+                      }
+
                     @-moz-keyframes myfirst {
                         0% {
                             left: -25%;
@@ -237,7 +256,7 @@ const Footer = () => {
                         100% {
                             left: 100%;
                         }
-                    }                
+                    }
                     /*************footer End*****************/
 
                     `}
