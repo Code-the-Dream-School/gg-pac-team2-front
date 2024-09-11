@@ -1,3 +1,6 @@
+import SideMenu from "../../components/SideMenu";
+import Footer from "../../components/Footer.jsx";
+import { useNavigate, Link } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from 'react';
 
 
@@ -7,9 +10,9 @@ const ProfileForm = () => {
   const [formData, setFormData] = useState({
     parentName: '',
     childrenNames: [''], // Only the first child name is required
-    numberOfSeats: '',
-    dropOffDays: [],
-    pickUpDays: [],
+    numberOfSeatsInCar: '',
+    availableDropOffDays: [],
+    availablePickUpDays: [],
     address: '',
     phoneNumber: '',
     currentPassword: '',
@@ -23,6 +26,7 @@ const ProfileForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPasswordFields, setShowPasswordFields] = useState(false); // Control password fields visibility
   const [userId, setUserId] = useState(''); // Store user ID
+  const [passwordChangeSuccessMessage, setPasswordChangeSuccessMessage] = useState('');
 
    // 1. Load user profile data on component mount
    useEffect(() => {
@@ -44,23 +48,23 @@ const ProfileForm = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log('Fetched data:', data); // Debugging line
 
           // Ensure data is populated correctly
           if (data && data.user) {
             setUserId(data.user._id); // Store the user ID for password change
-            setFormData((prevFormData) => ({
-              ...prevFormData,
+            setFormData({
               parentName: data.user.parentName || '', // Pre-fill Parent Name
-              childrenNames: Array.isArray(data.childrenNames) && data.childrenNames.length > 0 ? data.childrenNames : [''], // Check if childrenNames is an array
-              numberOfSeats: data.numberOfSeats || '',
-              dropOffDays: data.dropOffDays || [],
-              pickUpDays: data.pickUpDays || [],
-              address: data.address || '',
-              phoneNumber: data.phoneNumber || '',
+              childrenNames: Array.isArray(data.user.childrenNames) && data.user.childrenNames.length > 0 ? data.user.childrenNames : [''], // Check if childrenNames is an array
+              numberOfSeatsInCar: data.user.numberOfSeatsInCar || '',
+              availableDropOffDays: data.user.availableDropOffDays || [],
+              availablePickUpDays: data.user.availablePickUpDays || [],
+              address: data.user.address  || '',
+              phoneNumber: data.user.phoneNumber || '',
               currentPassword: '',
               newPassword: '',
               confirmPassword: '',
-            }));
+            });
           } else {
           setErrorMessage('Parent name not found in response.');
           }
@@ -79,7 +83,8 @@ const ProfileForm = () => {
   const handleChange = useCallback((e) => {
     const { name, value, checked } = e.target;
     setFormData((prevState) => {
-      if (name === 'dropOffDays' || name === 'pickUpDays') {
+      const newLocal = 'availableDropOffDays';
+      if (name === newLocal || name === 'availablePickUpDays') {
         return {
           ...prevState,
           [name]: checked
@@ -125,13 +130,13 @@ const ProfileForm = () => {
     // Validation: Only the first child's name is required
     if (!formData.childrenNames[0]) newErrors.childrenNames = 'All children\'s names are required';
 
-    if (!formData.numberOfSeats) {
-      newErrors.numberOfSeats = 'Number of seats is required';
-    } else if (formData.numberOfSeats < 1 || formData.numberOfSeats > 12) {
-      newErrors.numberOfSeats = 'Number of seats must be between 1 and 12';
+    if (!formData.numberOfSeatsInCar) {
+      newErrors.numberOfSeatsInCar = 'Number of seats is required';
+    } else if (formData.numberOfSeatsInCar < 1 || formData.numberOfSeatsInCar > 12) {
+      newErrors.numberOfSeatsInCar = 'Number of seats must be between 1 and 12';
     }
-    if (!formData.dropOffDays.length) newErrors.dropOffDays = 'At least one drop-off day is required';
-    if (!formData.pickUpDays.length) newErrors.pickUpDays = 'At least one pick-up day is required';
+    if (!formData.availableDropOffDays.length) newErrors.availableDropOffDays = 'At least one drop-off day is required';
+    if (!formData.availablePickUpDays.length) newErrors.availablePickUpDays = 'At least one pick-up day is required';
     if (!formData.address) newErrors.address = 'Address is required';
     if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) newErrors.phoneNumber = 'Phone number is required';
     
@@ -165,7 +170,7 @@ const ProfileForm = () => {
 
       try {
         setLoading(true);
-        const { parentName, numberOfSeats, address, phoneNumber, childrenNames, dropOffDays, pickUpDays,  currentPassword, newPassword, } = formData;
+        const { parentName, numberOfSeatsInCar, address, phoneNumber, childrenNames, availableDropOffDays, availablePickUpDays,  currentPassword, newPassword, } = formData;
 
         // Profile update request
         const profileUpdateResponse  = await fetch('http://localhost:8000/api/v1/profile', {
@@ -176,12 +181,12 @@ const ProfileForm = () => {
         },
         body: JSON.stringify({
           parentName,
-          numberOfSeats,
+          numberOfSeatsInCar,
           address,
           phoneNumber,
           childrenNames,
-          dropOffDays,
-          pickUpDays,
+          availableDropOffDays,
+          availablePickUpDays,
         }),
       });
 
@@ -206,6 +211,8 @@ const ProfileForm = () => {
         if (!passwordChangeResponse.ok) {
           const errorMessage = await passwordChangeResponse.text();
           throw new Error(`Password change failed: ${errorMessage}`);
+        } else {
+          setPasswordChangeSuccessMessage('Password changed successfully!');
         }
       }
 
@@ -233,9 +240,9 @@ const ProfileForm = () => {
     setFormData({
       parentName: '',
       childrenNames: [''],
-      numberOfSeats: '',
-      dropOffDays: [],
-      pickUpDays: [],
+      numberOfSeatsInCar: '',
+      availableDropOffDays: [],
+      availablePickUpDays: [],
       address: '',
       phoneNumber: '',
       currentPassword: '',
@@ -245,14 +252,26 @@ const ProfileForm = () => {
     setErrors({});
     setSuccessMessage('');
     setErrorMessage('');
+    setPasswordChangeSuccessMessage('');
     setShowPasswordFields(false); // Hide password fields on cancel
   };
 
   return (
     <div className="container">
+      <div className="p-4 shadow row">
+        <div className="col-9">
+          <SideMenu />
+          &nbsp;
+          <Link to={"/"}>
+            <img src="../../images/logo.png" alt="logo" />
+          </Link>
+        </div>
+      </div>
+      
       <h1 className="text-center mt-4">Profile Page</h1>
 
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
+      {passwordChangeSuccessMessage && <div className="alert alert-success">{passwordChangeSuccessMessage}</div>}
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
       <form onSubmit={handleSubmit}>
@@ -297,13 +316,13 @@ const ProfileForm = () => {
           <input
             type="number"
             className="form-control"
-            name="numberOfSeats"
-            value={formData.numberOfSeats}
+            name="numberOfSeatsInCar"
+            value={formData.numberOfSeatsInCar}
             onChange={handleChange}
             min="1"
             max="12"
           />
-          {errors.numberOfSeats && <div className="text-danger">{errors.numberOfSeats}</div>}
+          {errors.numberOfSeatsInCar && <div className="text-danger">{errors.numberOfSeatsInCar}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Available Drop-Off Days</label>
@@ -312,15 +331,15 @@ const ProfileForm = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                name="dropOffDays"
+                name="availableDropOffDays"
                 value={day}
                 onChange={handleChange}
-                checked={formData.dropOffDays.includes(day)}
+                checked={formData.availableDropOffDays.includes(day)}
               />
               <label className="form-check-label">{day}</label>
             </div>
           ))}
-          {errors.dropOffDays && <div className="text-danger">{errors.dropOffDays}</div>}
+          {errors.availableDropOffDays && <div className="text-danger">{errors.availableDropOffDays}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Available Pick-Up Days</label>
@@ -329,15 +348,15 @@ const ProfileForm = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                name="pickUpDays"
+                name="availablePickUpDays"
                 value={day}
                 onChange={handleChange}
-                checked={formData.pickUpDays.includes(day)}
+                checked={formData.availablePickUpDays.includes(day)}
               />
               <label className="form-check-label">{day}</label>
             </div>
           ))}
-          {errors.pickUpDays && <div className="text-danger">{errors.pickUpDays}</div>}
+          {errors.availablePickUpDays && <div className="text-danger">{errors.availablePickUpDays}</div>}
         </div>
         <div className="mb-3">
           <label className="form-label">Address</label>
@@ -367,7 +386,7 @@ const ProfileForm = () => {
 
         <button
           type="button"
-          className="btn btn-link mb-3"
+          className="btn btn-primary mb-3"
           onClick={() => setShowPasswordFields((prev) => !prev)}
         >
           {showPasswordFields ? 'Cancel Change Password' : 'Change Password'}
@@ -412,13 +431,16 @@ const ProfileForm = () => {
       </>
     )}
         <div>
-          <button type="submit" className="btn btn-primary me-2"disabled={loading}>
+          <button type="submit" className="btn btn-success me-2"disabled={loading}>
           {loading ? 'Submitting...' : 'Submit'}
           </button>
           <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
+      
+      <Footer />
     </div>
+    
   );
 };
 
