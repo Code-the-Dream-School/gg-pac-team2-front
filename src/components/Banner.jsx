@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import CloseButton from "react-bootstrap/CloseButton";
-import Button from "./Button";
-import { Link } from "react-router-dom";
+import { useRef } from 'react';
+import CloseButton from 'react-bootstrap/CloseButton';
+import Button from './Button';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   const registerMsgRef = useRef();
@@ -21,6 +21,34 @@ const Banner = () => {
                     .noUline {
                         text-decoration: none;
                     }
+
+                    @media only screen and (max-width: 600px) {
+                      .registerMsg {
+                        flex-direction: column;
+                        text-align: center;
+                        width: 100% !important;
+                      }
+
+                      .registerMsg p {
+                        width: 100% !important;
+                        margin-bottom: 10px;
+                        font-size 1rem;
+                      }
+
+                      .col-1, .col-2 {
+                        width: 100%;
+                        margin: 5px 0;
+                      }
+
+                      .col-2 {
+                        text-align: center;
+                      }
+
+                      .btnStyleB {
+                        width: 100%;
+                        pading: 10px;
+                      }
+                    }
                  `}
       </style>
 
@@ -29,18 +57,21 @@ const Banner = () => {
         ref={registerMsgRef}
       >
         <p className="col-8">
-          MAKE A DIFFERENT IN YOUR COMMUNITY, BECOME A MEMBER OF SCHOOL CARPOOL
+          MAKE A DIFFERENT IN YOUR COMMUNITY, BECOME A MEMBER OF
+          SCHOOL CARPOOL
         </p>
         <Link
-          to={"/register"}
-          className={`col-2 btnRadius25 mx-3 ms-5 btnStyleB text-center noUline`}
+          to={'/register'}
+          className={`col-2 btnRadius25 btnStyleB text-center noUline`}
         >
           APPLY NOW
         </Link>
         <CloseButton
           className="col-1"
           variant="white"
-          onClick={() => (registerMsgRef.current.style.display = "none")}
+          onClick={() =>
+            (registerMsgRef.current.style.display = 'none')
+          }
         />
       </div>
     </>
