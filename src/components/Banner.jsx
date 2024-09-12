@@ -43,11 +43,6 @@ const Banner = () => {
                       .col-2 {
                         text-align: center;
                       }
-
-                      .btnStyleB {
-                        width: 100%;
-                        pading: 10px;
-                      }
                     }
                  `}
       </style>

@@ -31,6 +31,7 @@ html {
   .col-3, .col-5, .col-2 {
     width: 100%;
     text-align: center;
+    margin: 0;
   }
 
   .loginBtn, .demoBtn, button {
