@@ -254,8 +254,8 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="container">
-      <div className="p-4 shadow row">
+    <>
+    <div className="p-4 shadow row">
         <div className="col-9">
           <SideMenu />
           &nbsp;
@@ -264,14 +264,15 @@ const ProfileForm = () => {
           </Link>
         </div>
       </div>
-      
+
+      <div className="container">      
       <h1 className="text-center mt-4">Profile Page</h1>
 
       {successMessage && <div className="alert alert-success">{successMessage}</div>}
       {passwordChangeSuccessMessage && <div className="alert alert-success">{passwordChangeSuccessMessage}</div>}
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-5">
 
         <div className="mb-3">
           <label className="form-label">Parent Name</label>
@@ -434,10 +435,9 @@ const ProfileForm = () => {
           <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
-      
       <Footer />
     </div>
-    
+    </>
   );
 };
 
