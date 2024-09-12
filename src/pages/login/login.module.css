@@ -2,7 +2,7 @@
   background-image: url("../../../images/login.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: 100;
 }
 
 .bigText {
@@ -17,3 +17,5 @@
 .darkBlueColor {
   color: #1a4a7a;
 }
+
+
