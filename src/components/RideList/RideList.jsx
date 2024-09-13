@@ -1,15 +1,7 @@
-import { useState } from 'react';
-import { Card, ListGroup } from 'react-bootstrap';
+import {Card, Col, ListGroup, Row} from 'react-bootstrap';
 import Button from "../Button.jsx";
 
-const RideList = ({ rides }) => {
-
-  const [selectedRide, setSelectedRide] = useState(null);
-
-  const handleSelectRide = (rideId) => {
-    setSelectedRide(rideId);
-    //todo: API request
-  };
+const RideList = ({ rides, rideRequestHandler }) => {
 
   if (rides.length === 0) {
     return (
@@ -20,9 +12,10 @@ const RideList = ({ rides }) => {
   }
 
   return (
-    <ListGroup className={'mt-4'}>
+    <Row className={'mt-4'}>
       {rides.map(ride => (
-        <Card key={ride._id} className="mb-3">
+        <Col key={ride._id} xs={12} md={6} className="mb-4">
+          <Card className="mb-3 ">
           <Card.Body>
             <Card.Title>{ride.parentName}</Card.Title>
             <Card.Text>Destination: {'Community Middle School'}</Card.Text>
@@ -33,7 +26,7 @@ const RideList = ({ rides }) => {
               ride.numberOfSeatsInCar > 0 ?
                 <Button
                   className={'btnStyleA btnRadius25'}
-                  onClick={() => handleSelectRide(ride._id)}>
+                  onClick={() => rideRequestHandler(ride._id)}>
                   Request for ride
                 </Button> :
                 <Button
@@ -44,8 +37,9 @@ const RideList = ({ rides }) => {
             }
           </Card.Body>
         </Card>
+        </Col>
       ))}
-    </ListGroup>
+    </Row>
   );
 
 }
