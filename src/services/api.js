@@ -35,6 +35,43 @@ export const getProfiles = async (token) => {
   }
 };
 
+export const getReceivedRequests = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/requests/received`);
+
+    console.log(response.data)
+
+    return response.data.requests;
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Error fetching profiles");
+  }
+};
+
+
+export const getSentRequests = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/requests/sent`);
+
+    console.log(response.data)
+
+    return response.data.requests;
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Error fetching profiles");
+  }
+};
+
+export const sendRideRequest = async (profileId, requestedPickUpDays) => {
+  try {
+    const response = await axios.post(`${API_URL}/requests`, {
+      profile: profileId,
+      requestedDropOffDays: requestedPickUpDays,
+      requestedPickUpDays: requestedPickUpDays,
+    });
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Failed to complete your ride request");
+  }
+};
+
 export const sendPasswordResetLink = async (email) => {  
   
   try {

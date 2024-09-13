@@ -1,11 +1,12 @@
 import SideMenu from "../../components/SideMenu";
 import Footer from "../../components/Footer.jsx";
-import { Alert, Container, ButtonGroup, Button } from "react-bootstrap";
+import { Alert, Container, ButtonGroup } from "react-bootstrap";
 import RideList from "../../components/RideList/RideList.jsx";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { getProfiles } from "../../services/api.js";
+import {getProfiles, sendRideRequest} from "../../services/api.js";
 import { getCredentials } from "../../util/index.js";
+import Button from "../../components/Button.jsx";
 
 // Function to get the name of the day of the week
 const getTodayDay = () => {
@@ -17,7 +18,10 @@ const getTodayDay = () => {
 const Rides = () => {
   const navigate = useNavigate();
   const [profiles, setProfiles] = useState([]);
-  const [error, setError] = useState("");
+  const [alertMsg, setAlertMsg] = useState({
+    variant: "",
+    msg: ""
+  });
   const [filteredProfiles, setFilteredProfiles] = useState([]);
   const [selectedDay, setSelectedDay] = useState("");
 
@@ -35,7 +39,10 @@ const Rides = () => {
           const userList = await getProfiles(credentials.token);
           setProfiles(userList);
         } catch (error) {
-          setError("Error fetching users: " + error.message);
+          setAlertMsg({
+            variant: "danger",
+            msg: "Error fetching users: " + error.message
+          });
         }
       };
       fetchProfiles();
@@ -53,6 +60,22 @@ const Rides = () => {
 
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
+  const rideRequestHandler = (profileId) => {
+    try {
+      const response = sendRideRequest(profileId, selectedDay);
+      setAlertMsg({
+        variant: "success",
+        msg: "Your request has been successfully completed. Please wait for confirmation."
+      })
+      window.scrollTo(0, 0);
+    } catch (error) {
+      setAlertMsg({
+        variant: "danger",
+        msg: error.message
+      });
+    }
+  };
+
   return (
     <div className="container-fluid">
       <div className="p-4 shadow row">
@@ -67,18 +90,18 @@ const Rides = () => {
 
       <Container className={"mb-4"}>
         <h1 className={"mt-4 text-center"}>Find a ride</h1>
-        {error && (
-          <Alert variant={"danger"} className={"mt-4"}>
-            {error}
+        {alertMsg.msg && (
+          <Alert variant={alertMsg.variant} className={"mt-4"}>
+            {alertMsg.msg}
           </Alert>
         )}
 
         {/*Days of week switcher*/}
-        <ButtonGroup className={"mt-4"}>
+        <ButtonGroup className={"d-flex flex-wrap mt-4"}>
           {daysOfWeek.map((day) => (
             <Button
               key={day}
-              className={selectedDay === day ? "btnStyleA" : "btnStyleA-outline"}
+              className={"flex-grow-1 " + (selectedDay === day ? "btnStyleA" : "btnStyleA-outline")}
               onClick={() => setSelectedDay(day)}
             >
               {day}
@@ -86,7 +109,7 @@ const Rides = () => {
           ))}
         </ButtonGroup>
 
-        <RideList rides={filteredProfiles} />
+        <RideList rides={filteredProfiles} rideRequestHandler={rideRequestHandler} />
       </Container>
 
       <Footer />

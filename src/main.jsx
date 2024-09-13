@@ -11,6 +11,8 @@ import "./main.css";
 import Rides from "./pages/rides/Rides.jsx";
 import ForgetPassword from "./pages/forgetPassword/forgetPassword.jsx";
 import ResetPassword from "./pages/resetPassword/resetPassword.jsx";
+import ReceivedRequests from "./pages/requests/ReceivedRequests.jsx";
+import SentRequests from "./pages/requests/SentRequests.jsx";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
   {
     path: "/reset-password/:userId/:token",
     element: <ResetPassword />
+  },
+  {
+    path: "/received-requests",
+    element: <ReceivedRequests />
+  },
+  {
+    path: "/sent-requests",
+    element: <SentRequests />
   }
 ]);
 
