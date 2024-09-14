@@ -1,7 +1,7 @@
 import {Card, Col, ListGroup, Row} from 'react-bootstrap';
 import Button from "../Button.jsx";
 
-const ReceivedRequestList = ({ receivedRequests, rideRequestHandler }) => {
+const ReceivedRequestList = ({ receivedRequests, rideAcceptHandler, rideRejectHandler }) => {
 
   if (receivedRequests.length === 0) {
     return (
@@ -24,13 +24,13 @@ const ReceivedRequestList = ({ receivedRequests, rideRequestHandler }) => {
 
                 <Button
                   className={'btnStyleA btnRadius25'}
-                  onClick={() => rideRequestHandler(receivedRequest._id)}>
+                  onClick={() => rideAcceptHandler(receivedRequest._id)}>
                   Accept
                 </Button>
                 &nbsp;
                 <Button
                   className={'btnStyleA-outline btnRadius25'}
-                  onClick={() => rideRequestHandler(receivedRequest._id)}>
+                  onClick={() => rideRejectHandler(receivedRequest._id)}>
                   Reject
                 </Button>
 

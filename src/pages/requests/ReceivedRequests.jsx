@@ -5,7 +5,13 @@ import RideList from "../../components/RideList/RideList.jsx";
 import Footer from "../../components/Footer.jsx";
 import {useEffect, useState} from "react";
 import {getCredentials} from "../../util/index.js";
-import {getProfiles, getReceivedRequests, sendRideRequest} from "../../services/api.js";
+import {
+  getProfiles,
+  getReceivedRequests,
+  sendAcceptRequest,
+  sendRejectRequest,
+  sendRideRequest
+} from "../../services/api.js";
 import ReceivedRequestList from "../../components/ReceivedRequestList/ReceivedRequestList.jsx";
 import Button from "../../components/Button.jsx";
 
@@ -61,12 +67,28 @@ const ReceivedRequests = () => {
 
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-  const rideRequestHandler = (profileId) => {
+  const rideAcceptHandler = (profileId) => {
     try {
-      const response = sendRideRequest(profileId, selectedDay);
+      const response = sendAcceptRequest(profileId);
       setAlertMsg({
         variant: "success",
-        msg: "Your request has been successfully completed. Please wait for confirmation."
+        msg: "Your request has been successfully completed."
+      })
+      window.scrollTo(0, 0);
+    } catch (error) {
+      setAlertMsg({
+        variant: "danger",
+        msg: error.message
+      });
+    }
+  };
+
+  const rideRejectHandler = (profileId) => {
+    try {
+      const response = sendRejectRequest(profileId);
+      setAlertMsg({
+        variant: "success",
+        msg: "Your request has been successfully completed."
       })
       window.scrollTo(0, 0);
     } catch (error) {
@@ -111,7 +133,7 @@ const ReceivedRequests = () => {
             ))}
           </ButtonGroup>
 
-          <ReceivedRequestList receivedRequests={filteredProfiles} rideRequestHandler={rideRequestHandler}/>
+          <ReceivedRequestList receivedRequests={filteredProfiles} rideAcceptHandler={rideAcceptHandler} rideRejectHandler={rideRejectHandler}/>
         </Container>
 
         <Footer/>

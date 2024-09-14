@@ -72,6 +72,26 @@ export const sendRideRequest = async (profileId, requestedPickUpDays) => {
   }
 };
 
+export const sendAcceptRequest = async (profileId) => {
+  try {
+    const response = await axios.patch(`${API_URL}/requests/${profileId}/status`, {
+      status: "approved",
+    });
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Failed to complete your ride request");
+  }
+};
+
+export const sendRejectRequest = async (profileId) => {
+  try {
+    const response = await axios.patch(`${API_URL}/requests/${profileId}/status`, {
+      status: "declined",
+    });
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Failed to complete your ride request");
+  }
+};
+
 export const sendPasswordResetLink = async (email) => {  
   
   try {
